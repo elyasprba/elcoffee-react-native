@@ -8,15 +8,35 @@ export default StyleSheet.create({
   image: {
     display: 'flex',
     flex: 1,
-    opacity: 0.9,
+    // opacity: 0.9,
+  },
+
+  imageWelcome: {
+    display: 'flex',
+    flex: 1,
+  },
+
+  mainTitle: {
+    backgroundColor: '#000000c0',
+    width: 370,
+    height: 120,
+    justifyContent: 'center',
+    opacity: 1,
   },
 
   text: {
     color: 'white',
-    fontSize: 42,
+    fontSize: 50,
     lineHeight: 50,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  textDesc: {
+    fontSize: 17,
+    color: '#ffffff',
+    textAlign: 'center',
+    lineheight: '26px',
   },
 
   mainContent: {
@@ -33,12 +53,28 @@ export default StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     borderRadius: 15,
+    marginBottom: 10,
+  },
+
+  btnNewAccount: {
+    backgroundColor: '#6A4029',
+    height: 50,
+    width: 250,
+    justifyContent: 'center',
+    textAlign: 'center',
+    borderRadius: 15,
+    marginBottom: 10,
   },
 
   getStarted: {
     color: '#000000',
     fontWeight: '700',
     textAlign: 'center',
-    margin: 10,
+  },
+
+  createNewAccount: {
+    color: '#ffffff',
+    fontWeight: '700',
+    textAlign: 'center',
   },
 });

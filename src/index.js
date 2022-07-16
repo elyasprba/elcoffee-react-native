@@ -2,8 +2,9 @@ import {StatusBar, View, Text} from 'react-native';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Login from './screens/auth';
 import LandingPage from './screens/landingPage';
+import Login from './screens/auth/Login';
+import Register from './screens/auth/Register';
 
 const Router = () => {
   const {Navigator, Screen} = createStackNavigator();
@@ -13,6 +14,7 @@ const Router = () => {
       <Navigator>
         <Screen name="LandingPage" component={LandingPage} />
         <Screen name="Login" component={Login} />
+        <Screen name="Register" component={Register} />
       </Navigator>
     </>
   );
