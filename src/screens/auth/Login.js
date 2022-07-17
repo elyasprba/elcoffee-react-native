@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 
 import React, {useState} from 'react';
-import {loginAxios} from '../../modules/auth';
+import {useDispatch} from 'react-redux';
+import loginAction from '../../redux/actionCreator/auth';
 
 import styles from './styles';
 
@@ -18,14 +19,17 @@ const Login = ({navigation}) => {
     password: '',
   });
 
+  const dispatch = useDispatch();
+
   const handleLogin = async () => {
     const body = {
       email: input.email,
       password: input.password,
     };
-    loginAxios(body)
+
+    dispatch(loginAction(body))
       .then(result => {
-        console.log(result.data.data.msg);
+        console.log(result.data);
       })
       .catch(err => {
         console.log(err);
@@ -64,7 +68,7 @@ const Login = ({navigation}) => {
             <View style={styles.btnContainer}>
               <Pressable style={styles.btnCreateAccount}>
                 <Text style={styles.createAccount} onPress={handleLogin}>
-                  Create Account
+                  Login
                 </Text>
               </Pressable>
               <Pressable style={styles.btnCreateAccountGoogle}>
