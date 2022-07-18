@@ -7,8 +7,8 @@ import {
   Image,
 } from 'react-native';
 
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import loginAction from '../../redux/actionCreator/auth';
 
 import styles from './styles';
@@ -18,6 +18,7 @@ const Login = ({navigation}) => {
     email: '',
     password: '',
   });
+  const {isSuccess} = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
 
@@ -28,13 +29,19 @@ const Login = ({navigation}) => {
     };
 
     dispatch(loginAction(body))
-      .then(result => {
-        console.log(result.data);
+      .then(_ => {
+        navigation.navigate('Drawer');
       })
       .catch(err => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigation.navigate('Drawer');
+    }
+  }, [isSuccess]);
 
   return (
     <>
