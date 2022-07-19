@@ -1,15 +1,8 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  TextInput,
-  Pressable,
-  Image,
-} from 'react-native';
+import {View, Text, ImageBackground, TextInput, Pressable} from 'react-native';
 
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import loginAction from '../../redux/actionCreator/auth';
+import {loginAction} from '../../redux/actionCreator/auth';
 
 import styles from './styles';
 
@@ -38,7 +31,7 @@ const Login = ({navigation}) => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess === true) {
       navigation.navigate('Drawer');
     }
   }, [isSuccess]);

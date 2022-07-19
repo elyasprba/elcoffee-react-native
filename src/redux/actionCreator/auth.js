@@ -1,10 +1,15 @@
-import {LOGIN} from './actionString';
-
+import {LOGIN, LOGOUT} from './actionString';
 import {loginAxios} from '../../modules/auth';
 
-export default loginAction = body => {
+export const loginAction = body => {
   return {
     type: LOGIN,
     payload: loginAxios(body),
+  };
+};
+
+export const logoutAction = () => {
+  return {
+    type: LOGOUT,
   };
 };

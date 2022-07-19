@@ -7,7 +7,8 @@ import {
 } from '../actionCreator/actionString';
 
 const initialState = {
-  userInfo: null,
+  userInfo: '',
+  authInfo: '',
   isLoading: false,
   err: null,
   isSuccess: null,
@@ -23,7 +24,8 @@ const loginReducer = (prevState = initialState, action) => {
       return {
         ...prevState,
         isLoading: false,
-        userInfo: action.payload.data,
+        authInfo: action.payload.data.data,
+        userInfo: action.payload.data.data.payload,
         isSuccess: true,
         isLoggedIn: true,
       };
@@ -37,7 +39,7 @@ const loginReducer = (prevState = initialState, action) => {
       };
 
     case LOGOUT:
-      return initialState;
+      return {...initialState};
 
     default:
       return prevState;

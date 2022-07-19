@@ -11,15 +11,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Awesome5 from 'react-native-vector-icons/FontAwesome5';
 import style from './styles';
-// import {logoutAction} from '../../redux/actionCreators/auth';
+import {logoutAction} from '../../redux/actionCreator/auth';
 const Drawer = createDrawerNavigator();
 
 function MyDrawer(props) {
   const dispatch = useDispatch();
-  const {
-    payload: {name, email, pict},
-  } = useSelector(state => state.auth.userInfo.data);
-  const picture = pict.replace('\\');
+  const {userInfo} = useSelector(state => state.auth);
+
+  const historyHandler = () => {
+    props.navigation.navigate('history');
+  };
+
+  const profileHandler = () => {
+    props.navigation.navigate('profile');
+  };
 
   return (
     <>
@@ -27,23 +32,27 @@ function MyDrawer(props) {
         <View style={style.profileContainer}>
           <Image
             source={
-              picture
-                ? {uri: picture}
+              userInfo.pict
+                ? {uri: userInfo.pict.replace('\\')}
                 : require('../../assets/vector/profile-default.png')
             }
             style={style.profpict}
           />
-          <Text style={style.username}>{name}</Text>
-          <Text style={style.email}>{email}</Text>
+          <Text style={style.username}>{userInfo.name}</Text>
+          <Text style={style.email}>{userInfo.email}</Text>
         </View>
         <View style={style.menuContainer}>
           <View style={style.menuList}>
             <Ionicons name="person-circle-outline" size={20} color="#6A4029" />
-            <Text style={style.menuText}>Edit Profile</Text>
+            <Text style={style.menuText} onPress={profileHandler}>
+              Profile
+            </Text>
           </View>
           <View style={style.menuList}>
             <Material name="cart-arrow-down" size={20} color="#6A4029" />
-            <Text style={style.menuText}>Orders</Text>
+            <Text style={style.menuText} onPress={historyHandler}>
+              History
+            </Text>
           </View>
           <View style={style.menuList}>
             <Ionicons name="fast-food-outline" size={20} color="#6A4029" />
@@ -58,14 +67,15 @@ function MyDrawer(props) {
             <Text style={style.menuText}>Security</Text>
           </View>
         </View>
-        <Pressable style={style.menuList}>
+        <Pressable
+          style={style.menuList}
+          onPress={() => {
+            dispatch(logoutAction());
+            props.navigation.navigate('LandingPage');
+          }}>
           <Material name="logout" size={20} color="#6A4029" />
           <Text style={style.menuText}>Logout</Text>
         </Pressable>
-        {/* <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-        <DrawerItem />
-      </DrawerContentScrollView> */}
       </View>
     </>
   );

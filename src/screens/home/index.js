@@ -2,7 +2,6 @@ import {View, Text, TextInput, ScrollView, FlatList} from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-
 import style from './styles';
 import CardProduct from '../../components/Products';
 import Header from '../../components/Headers';
@@ -14,7 +13,7 @@ const Home = props => {
   const getProducts = async () => {
     try {
       const result = await axios.get(
-        `https://el-coffee-shop.herokuapp.com/products?limit=5`,
+        `https://el-coffee-shop.herokuapp.com/products`,
       );
       setProduct(result.data.data);
     } catch (error) {

@@ -19,8 +19,8 @@ export default StyleSheet.create({
   profpict: {
     width: 100,
     height: 100,
-    // resizeMode: 'center',
-    // borderRadius: 100,
+    resizeMode: 'center',
+    borderRadius: 100,
     alignSelf: 'center',
     marginBottom: 10,
   },
