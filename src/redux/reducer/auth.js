@@ -10,6 +10,7 @@ const initialState = {
   userInfo: '',
   authInfo: '',
   isLoading: false,
+  errMsg: '',
   err: null,
   isSuccess: null,
   isLoggedIn: false,
@@ -34,6 +35,7 @@ const loginReducer = (prevState = initialState, action) => {
       return {
         ...prevState,
         err: action.payload.response.data,
+        errMsg: action.payload.response.data.err,
         isLoading: false,
         isSuccess: false,
       };
