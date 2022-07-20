@@ -17,7 +17,9 @@ export default function CardProduct({navigation, id, name, price, pict}) {
       />
       <View style={style.textContainer}>
         <Text style={style.name}>{name ? name : 'Name Not Available'}</Text>
-        <Text style={style.price}>{price ? price : 'Price Not Available'}</Text>
+        <Text style={style.price}>
+          IDR {price ? price : 'Price Not Available'}
+        </Text>
       </View>
     </Pressable>
   );

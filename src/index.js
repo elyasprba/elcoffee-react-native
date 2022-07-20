@@ -18,6 +18,8 @@ import ProductDetail from './screens/productDetail';
 import Cart from './screens/cart';
 import Delivery from './screens/delivery';
 import Payment from './screens/payment';
+import History from './screens/history';
+import Profile from './screens/profile';
 
 const Drawer = createDrawerNavigator();
 
@@ -110,6 +112,50 @@ const DrawerNav = ({navigation}) => {
               <Ion
                 onPress={() => {
                   navigation.navigate('cart');
+                }}
+                name="chevron-back-outline"
+                size={20}
+                color="black"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="history"
+        component={History}
+        options={{
+          headerStyle: {
+            backgroundColor: '#F2F2F2',
+          },
+          headerTitle: 'History',
+          headerLeft: () => (
+            <View style={{paddingLeft: 20}}>
+              <Ion
+                onPress={() => {
+                  navigation.navigate('Home');
+                }}
+                name="chevron-back-outline"
+                size={20}
+                color="black"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="profile"
+        component={Profile}
+        options={{
+          headerStyle: {
+            backgroundColor: '#F2F2F2',
+          },
+          headerTitle: 'Profile',
+          headerLeft: () => (
+            <View style={{paddingLeft: 20}}>
+              <Ion
+                onPress={() => {
+                  navigation.navigate('Home');
                 }}
                 name="chevron-back-outline"
                 size={20}
