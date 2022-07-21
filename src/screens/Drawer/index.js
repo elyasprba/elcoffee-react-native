@@ -26,6 +26,10 @@ function MyDrawer(props) {
     props.navigation.navigate('profile');
   };
 
+  const productListHandler = () => {
+    props.navigation.navigate('listProduct');
+  };
+
   return (
     <>
       <View style={style.container}>
@@ -56,7 +60,9 @@ function MyDrawer(props) {
           </View>
           <View style={style.menuList}>
             <Ionicons name="fast-food-outline" size={20} color="#6A4029" />
-            <Text style={style.menuText}>All menu</Text>
+            <Text style={style.menuText} onPress={productListHandler}>
+              All menu
+            </Text>
           </View>
           <View style={style.menuList}>
             <Ionicons name="newspaper-outline" size={20} color="#6A4029" />

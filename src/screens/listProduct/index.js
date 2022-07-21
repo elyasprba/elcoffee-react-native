@@ -4,9 +4,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import style from './styles';
 import CardProduct from '../../components/Products';
-import Header from '../../components/Headers';
 
-const Home = props => {
+const ListProduct = props => {
   const [list, setList] = useState('favorite');
   const [product, setProduct] = useState([]);
 
@@ -17,7 +16,7 @@ const Home = props => {
         baseUrl += `/favorite`;
       }
       if (list !== 'favorite' && list !== 'all') {
-        baseUrl += `?category_name=${list}`;
+        baseUrl += `?category_name=${list}&limit=7&page=1`;
       }
       baseUrl;
       const result = await axios.get(baseUrl);
@@ -33,7 +32,6 @@ const Home = props => {
 
   return (
     <View>
-      <Header {...props} />
       <View style={style.container}>
         <Text style={style.title}>A good coffee is a good day</Text>
       </View>
@@ -77,13 +75,13 @@ const Home = props => {
         {/* </View> */}
       </ScrollView>
       <View style={style.listProducts}>
-        <Text style={style.allProducrs}>{list}</Text>
+        <Text style={style.allProducrs}>SORT</Text>
         <Pressable onPress={() => props.navigation.navigate('listProduct')}>
-          <Text style={style.showMore}>Show More</Text>
+          <Text style={style.allProducrs}>ORDER</Text>
         </Pressable>
       </View>
       <ScrollView
-        horizontal={true}
+        // horizontal={true}
         style={style.productContainer}
         showsHorizontalScrollIndicator={false}>
         {product.length > 0 &&
@@ -106,4 +104,4 @@ const Home = props => {
   );
 };
 
-export default Home;
+export default ListProduct;
