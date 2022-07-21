@@ -52,6 +52,7 @@ export default StyleSheet.create({
 
   categoryTextAct: {
     fontFamily: 'Poppins-SemiBold',
+    fontWeight: 'bold',
     fontSize: 17,
     color: '#6A4029',
     marginRight: 20,
@@ -62,5 +63,18 @@ export default StyleSheet.create({
   productContainer: {
     marginVertical: 10,
     marginHorizontal: '5%',
+  },
+
+  listProducts: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+  },
+
+  allProducrs: {
+    fontSize: 17,
+    fontWeight: 'bold',
   },
 });

@@ -1,4 +1,4 @@
-import {View, Text, TextInput, ScrollView, FlatList} from 'react-native';
+import {View, Text, TextInput, ScrollView, Pressable} from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -7,14 +7,20 @@ import CardProduct from '../../components/Products';
 import Header from '../../components/Headers';
 
 const Home = props => {
-  const [list, setList] = useState('all');
+  const [list, setList] = useState('favorite');
   const [product, setProduct] = useState([]);
 
   const getProducts = async () => {
     try {
-      const result = await axios.get(
-        `https://el-coffee-shop.herokuapp.com/products`,
-      );
+      let baseUrl = `https://el-coffee-shop.herokuapp.com/products`;
+      if (list === 'favorite') {
+        baseUrl += `/favorite`;
+      }
+      if (list !== 'favorite' && list !== 'all') {
+        baseUrl += `?category_name=${list}`;
+      }
+      baseUrl;
+      const result = await axios.get(baseUrl);
       setProduct(result.data.data);
     } catch (error) {
       console.log(error);
@@ -23,7 +29,7 @@ const Home = props => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [list]);
 
   return (
     <View>
@@ -53,9 +59,9 @@ const Home = props => {
         </Text>
         <Text
           style={
-            list === 'noncoffee' ? style.categoryTextAct : style.categoryText
+            list === 'non coffee' ? style.categoryTextAct : style.categoryText
           }
-          onPress={() => setList('noncoffee')}>
+          onPress={() => setList('non coffee')}>
           Non Coffee
         </Text>
         <Text
@@ -70,15 +76,21 @@ const Home = props => {
         </Text>
         {/* </View> */}
       </ScrollView>
+      <View style={style.listProducts}>
+        <Text style={style.allProducrs}>{list}</Text>
+        <Pressable onPress={() => props.navigation.navigate('LandingPage')}>
+          <Text style={style.showMore}>Show More</Text>
+        </Pressable>
+      </View>
       <ScrollView
         horizontal={true}
         style={style.productContainer}
         showsHorizontalScrollIndicator={false}>
         {product.length > 0 &&
-          product.map(result => (
+          product.map((result, idx) => (
             <CardProduct
+              key={idx}
               id={result.id}
-              key={result.id}
               name={result.name}
               pict={
                 result.pict
