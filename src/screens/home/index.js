@@ -7,19 +7,35 @@ import CardProduct from '../../components/Products';
 import Header from '../../components/Headers';
 
 const Home = props => {
-  const [list, setList] = useState('favorite');
   const [product, setProduct] = useState([]);
+  const [list, setList] = useState('all');
+  const [limit, setLimit] = useState(12);
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('price');
+  const [order, setOrder] = useState('asc');
+  const [searchName, setSearchName] = useState('');
 
   const getProducts = async () => {
     try {
       let baseUrl = `https://el-coffee-shop.herokuapp.com/products`;
+      if (list === 'all') {
+        baseUrl += `?limit=${limit}&page=${page}`;
+      }
+
       if (list === 'favorite') {
-        baseUrl += `/favorite`;
+        baseUrl += `/favorite?`;
       }
+
       if (list !== 'favorite' && list !== 'all') {
-        baseUrl += `?category_name=${list}`;
+        baseUrl += `?category_name=${list}&limit=${limit}&page=${page}`;
       }
-      baseUrl;
+
+      if (searchName !== '') {
+        baseUrl += `&name=${searchName}`;
+      }
+
+      baseUrl += `&sort=${sort}&order=${order}`;
+      console.log('BASE URL =', baseUrl);
       const result = await axios.get(baseUrl);
       setProduct(result.data.data);
     } catch (error) {
@@ -29,7 +45,7 @@ const Home = props => {
 
   useEffect(() => {
     getProducts();
-  }, [list]);
+  }, [list, searchName]);
 
   return (
     <View>
@@ -39,7 +55,13 @@ const Home = props => {
       </View>
       <View style={style.searchContainer}>
         <IconIonicons name="search" size={20} color="#9F9F9F" />
-        <TextInput style={style.searchInput} placeholder={'Search'} />
+        <TextInput
+          style={style.searchInput}
+          placeholder={'Search'}
+          onChange={e => {
+            setSearchName(e.nativeEvent.text);
+          }}
+        />
       </View>
       <ScrollView
         horizontal={true}

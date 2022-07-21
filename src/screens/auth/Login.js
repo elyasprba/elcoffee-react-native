@@ -50,6 +50,7 @@ const Login = ({navigation}) => {
       .then(_ => {
         successToast();
         navigation.navigate('Drawer');
+        setInput({...input, email: '', password: ''});
       })
       .catch(_ => {
         errorToast();

@@ -4,9 +4,9 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
+  // DrawerContentScrollView,
+  // DrawerItemList,
+  // DrawerItem,
 } from '@react-navigation/drawer';
 import Ion from 'react-native-vector-icons/Ionicons';
 import MyDrawer from './screens/Drawer';
@@ -20,6 +20,7 @@ import Delivery from './screens/delivery';
 import Payment from './screens/payment';
 import History from './screens/history';
 import Profile from './screens/profile';
+import ListProduct from './screens/listProduct';
 
 const Drawer = createDrawerNavigator();
 
@@ -151,6 +152,28 @@ const DrawerNav = ({navigation}) => {
             backgroundColor: '#F2F2F2',
           },
           headerTitle: 'Profile',
+          headerLeft: () => (
+            <View style={{paddingLeft: 20}}>
+              <Ion
+                onPress={() => {
+                  navigation.navigate('Home');
+                }}
+                name="chevron-back-outline"
+                size={20}
+                color="black"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="listProduct"
+        component={ListProduct}
+        options={{
+          headerStyle: {
+            backgroundColor: '#F2F2F2',
+          },
+          headerTitle: 'List Product',
           headerLeft: () => (
             <View style={{paddingLeft: 20}}>
               <Ion

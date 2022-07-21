@@ -25,10 +25,8 @@ export default StyleSheet.create({
   },
 
   searchInput: {
-    paddingVertical: 5,
     fontSize: 16,
     width: '100%',
-    textAlignVertical: 'auto',
   },
 
   categoryContainer: {

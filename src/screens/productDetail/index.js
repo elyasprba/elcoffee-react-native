@@ -25,7 +25,7 @@ const ProductDetail = props => {
 
   useEffect(() => {
     productDetail();
-  }, []);
+  }, [props.route.params.id]);
 
   const addCartHandler = () => {
     const newProduct = {...product, size};
