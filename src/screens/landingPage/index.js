@@ -1,6 +1,10 @@
 import {View, Text, ImageBackground, Pressable} from 'react-native';
 import React, {useState} from 'react';
 // import {Button} from '@rneui/themed';
+import {
+  sendLocalNotification,
+  sendScheduledNotification,
+} from '../../helpers/notification';
 
 import styles from './landingPage';
 

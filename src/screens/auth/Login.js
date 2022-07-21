@@ -4,14 +4,16 @@ import {
   ImageBackground,
   TextInput,
   Pressable,
-  ToastAndroid,
   Image,
 } from 'react-native';
-
+import {
+  sendLocalNotification,
+  sendScheduledNotification,
+} from '../../helpers/notification';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginAction} from '../../redux/actionCreator/auth';
-
+import Toast from 'react-native-toast-message';
 import styles from './styles';
 import {Button} from '@rneui/base';
 
@@ -25,19 +27,17 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch();
 
   const successToast = () => {
-    ToastAndroid.showWithGravity(
-      'Login Success',
-      ToastAndroid.SHORT,
-      ToastAndroid.TOP,
-    );
+    Toast.show({
+      type: 'success',
+      text1: 'Login Success',
+    });
   };
 
   const errorToast = () => {
-    ToastAndroid.showWithGravity(
-      errMsg.msg,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
-    );
+    Toast.show({
+      type: 'error',
+      text1: errMsg.msg,
+    });
   };
 
   const handleLogin = async () => {
@@ -50,6 +50,7 @@ const Login = ({navigation}) => {
       .then(_ => {
         successToast();
         navigation.navigate('Drawer');
+        sendLocalNotification('WELCOME', 'This is el-CoffeeShop');
         setInput({...input, email: '', password: ''});
       })
       .catch(_ => {
@@ -105,6 +106,7 @@ const Login = ({navigation}) => {
             </Pressable>
           </View>
         </View>
+        {/* <Toast position="bottom" bottomOffset={20} /> */}
       </ImageBackground>
     </>
   );

@@ -1,13 +1,12 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://el-coffee-shop.herokuapp.com';
+import {REACT_APP_BE_HOST} from '@env';
 
 export const registerAxios = body => {
-  const URL = `${BASE_URL}/auth/register`;
+  const URL = `${REACT_APP_BE_HOST}/auth/register`;
   return axios.post(URL, body);
 };
 
 export const loginAxios = body => {
-  const URL = `${BASE_URL}/auth`;
+  const URL = `${REACT_APP_BE_HOST}/auth`;
   return axios.post(URL, body);
 };

@@ -4,13 +4,12 @@ import {
   ImageBackground,
   TextInput,
   Pressable,
-  ToastAndroid,
   Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import {registerAxios} from '../../modules/auth';
 import {Button} from '@rneui/base';
-import {useSelector} from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 import styles from './styles';
 
@@ -22,19 +21,17 @@ const Register = () => {
   });
 
   const successToast = () => {
-    ToastAndroid.showWithGravity(
-      'Register Success',
-      ToastAndroid.SHORT,
-      ToastAndroid.TOP,
-    );
+    Toast.show({
+      type: 'success',
+      text1: 'Login Success',
+    });
   };
 
   const errorToast = () => {
-    ToastAndroid.showWithGravity(
-      'email, password, and phone number invalid',
-      ToastAndroid.SHORT,
-      ToastAndroid.BOTTOM,
-    );
+    Toast.show({
+      type: 'error',
+      text1: 'Email, Password and Phone Number Invalid',
+    });
   };
 
   const handleRegister = () => {
@@ -47,6 +44,7 @@ const Register = () => {
       .then(_ => {
         // console.log('SUCCESS =',result.data.data.msg);
         successToast();
+        setInput({...input, email: '', password: '', phone_number: ''});
       })
       .catch(_ => {
         // console.log('ERROR =', err.response.data.msg);
