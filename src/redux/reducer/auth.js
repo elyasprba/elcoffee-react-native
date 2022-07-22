@@ -7,7 +7,7 @@ import {
 } from '../actionCreator/actionString';
 
 const initialState = {
-  userInfo: '',
+  // userInfo: '',
   authInfo: '',
   isLoading: false,
   errMsg: '',
@@ -26,7 +26,7 @@ const loginReducer = (prevState = initialState, action) => {
         ...prevState,
         isLoading: false,
         authInfo: action.payload.data.data,
-        userInfo: action.payload.data.data.payload,
+        // userInfo: action.payload.data.data.payload,
         isSuccess: true,
         isLoggedIn: true,
       };

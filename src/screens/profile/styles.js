@@ -52,15 +52,14 @@ export default StyleSheet.create({
   },
 
   name: {
-    fontFamily: 'Poppins-ExtraBold',
     fontSize: 18,
     color: '#000000',
   },
 
   email: {
-    fontFamily: 'Poppins-Regular',
     fontSize: 15,
     color: '#6A4029',
+    marginVertical: 3,
   },
 
   border: {
