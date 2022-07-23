@@ -5,6 +5,7 @@ import axios from 'axios';
 import style from './styles';
 import {useDispatch} from 'react-redux';
 import {addToCartAction} from '../../redux/actionCreator/addCart';
+import {REACT_APP_BE_HOST} from '@env';
 
 const ProductDetail = props => {
   const dispatch = useDispatch();
@@ -14,9 +15,7 @@ const ProductDetail = props => {
   const productDetail = async () => {
     try {
       const id = props.route.params.id;
-      const result = await axios.get(
-        `https://el-coffee-shop.herokuapp.com/products/${id}`,
-      );
+      const result = await axios.get(`${REACT_APP_BE_HOST}/products/${id}`);
       setProduct(result.data.data[0]);
     } catch (error) {
       console.log(error);
@@ -25,6 +24,7 @@ const ProductDetail = props => {
 
   useEffect(() => {
     productDetail();
+    setSize('');
   }, [props.route.params.id]);
 
   const addCartHandler = () => {

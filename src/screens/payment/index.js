@@ -1,25 +1,39 @@
 import {View, Text, Image, Pressable, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import Octicons from 'react-native-vector-icons/Octicons';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {removeCartAction} from '../../redux/actionCreator/addCart';
 import axios from 'axios';
 import style from './styles';
+import {REACT_APP_BE_HOST} from '@env';
+import {sendLocalNotification} from '../../helpers/notification';
 
 const Payment = props => {
   const {
     addProduct: {price, name, qty, size, pict, id},
   } = useSelector(state => state.cart);
   const {authInfo} = useSelector(state => state.auth);
-  const {userInfo} = useSelector(state => state.auth);
+  const {userInfo} = useSelector(state => state.user);
   const [payment, setPayment] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const tax = 10000;
   const shipping = 10000;
+
+  const dispatch = useDispatch();
+
+  // const successToast = () => {
+  //   Toast.show({
+  //     type: 'success',
+  //     text1: msg ? msg : 'Update succsessfull',
+  //   });
+  // };
 
   console.log('ID PRODUCT =', id);
   console.log('ID USERS = ', userInfo.id);
 
   const addPayment = async () => {
     try {
+      setIsLoading(true);
       const body = {
         name_products: id,
         qty: qty,
@@ -31,15 +45,24 @@ const Payment = props => {
           parseInt(qty) * parseInt(price) + parseInt(tax) + parseInt(shipping),
         users_id: userInfo.id,
       };
+
       const config = {headers: {Authorization: `Bearer ${authInfo.token}`}};
       const result = await axios.post(
-        `https://el-coffee-shop.herokuapp.com/transactions`,
+        `${REACT_APP_BE_HOST}/transactions`,
         body,
         config,
       );
-      console.log('PAYMENT SUCCESS!', result.data.data);
-      props.navigation.navigate('history');
+      dispatch(removeCartAction());
+      setIsLoading(false);
+      sendLocalNotification(
+        'Payment Success',
+        'Thank you for shopping at el-CoffeeShop',
+      );
+      setTimeout(() => {
+        props.navigation.navigate('Home');
+      }, 1000);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -136,7 +159,10 @@ const Payment = props => {
             source={require('../../assets/vector/card-bank.png')}
             style={style.cardBank}
           />
-          <Pressable style={style.paymentBtn} onPress={addPayment}>
+          <Pressable
+            style={style.paymentBtn}
+            loading={isLoading}
+            onPress={addPayment}>
             <Text style={style.paymentTxt}>Proceed payment</Text>
           </Pressable>
         </View>

@@ -58,8 +58,12 @@ const Profile = props => {
             <Text style={style.menu}>Help</Text>
             <Awesome5 name="chevron-right" size={20} />
           </View>
-          <Pressable style={style.saveBtn}>
-            <Text style={style.saveTxt}>Save Change</Text>
+          <Pressable
+            style={style.saveBtn}
+            onPress={() => {
+              props.navigation.navigate('Home');
+            }}>
+            <Text style={style.saveTxt}>Back To Home</Text>
           </Pressable>
         </View>
       </ScrollView>

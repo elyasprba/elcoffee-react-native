@@ -1,13 +1,11 @@
-import axios from 'axios';
-
-const BASE_URL = 'https://el-coffee-shop.herokuapp.com';
+import {REACT_APP_BE_HOST} from '@env';
 
 export const getProductsAxios = () => {
-  const URL = `${BASE_URL}/products?limit=5`;
+  const URL = `${REACT_APP_BE_HOST}/products?limit=5`;
   return axios.get(URL);
 };
 
 export const productDetailAxios = id => {
-  const URL = `${BASE_URL}/products/${id}`;
+  const URL = `${REACT_APP_BE_HOST}/products/${id}`;
   return axios.get(URL);
 };

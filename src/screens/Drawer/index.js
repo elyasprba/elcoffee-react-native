@@ -16,7 +16,7 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer(props) {
   const dispatch = useDispatch();
-  const {userInfo} = useSelector(state => state.auth);
+  const {userInfo} = useSelector(state => state.user);
 
   const historyHandler = () => {
     props.navigation.navigate('history');
@@ -37,12 +37,12 @@ function MyDrawer(props) {
           <Image
             source={
               userInfo.pict
-                ? {uri: userInfo.pict.replace('\\')}
+                ? {uri: userInfo.pict}
                 : require('../../assets/vector/profile-default.png')
             }
             style={style.profpict}
           />
-          <Text style={style.username}>{userInfo.name}</Text>
+          <Text style={style.username}>{userInfo.display_name}</Text>
           <Text style={style.email}>{userInfo.email}</Text>
         </View>
         <View style={style.menuContainer}>

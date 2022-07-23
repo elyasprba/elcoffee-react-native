@@ -1,14 +1,23 @@
-import {View, Text, TextInput, ScrollView, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  Pressable,
+  FlatList,
+} from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
+import Header from '../../components/Headers';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import style from './styles';
 import CardProduct from '../../components/Products';
+import {REACT_APP_BE_HOST} from '@env';
 
 const ListProduct = props => {
   const [product, setProduct] = useState([]);
   const [list, setList] = useState('all');
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(6);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('price');
   const [order, setOrder] = useState('asc');
@@ -16,7 +25,7 @@ const ListProduct = props => {
 
   const getProducts = async () => {
     try {
-      let baseUrl = `https://el-coffee-shop.herokuapp.com/products`;
+      let baseUrl = `${REACT_APP_BE_HOST}/products`;
       if (list === 'all') {
         baseUrl += `?limit=${limit}&page=${page}`;
       }
@@ -44,65 +53,98 @@ const ListProduct = props => {
 
   useEffect(() => {
     getProducts();
-  }, [list, searchName]);
+  }, [list, searchName, limit, page]);
 
   return (
-    <View>
-      <View style={style.container}>
-        <Text style={style.title}>A good coffee is a good day</Text>
-      </View>
-      <View style={style.searchContainer}>
-        <IconIonicons name="search" size={20} color="#9F9F9F" />
-        <TextInput
-          style={style.searchInput}
-          placeholder={'Search'}
-          onChange={e => {
-            setSearchName(e.nativeEvent.text);
-          }}
-        />
-      </View>
-      <ScrollView
-        horizontal={true}
-        style={style.scrollViewH}
-        showsHorizontalScrollIndicator={false}>
-        <Text
-          style={
-            list === 'favorite' ? style.categoryTextAct : style.categoryText
-          }
-          onPress={() => setList('favorite')}>
-          Favorite
-        </Text>
-        <Text
-          style={list === 'coffee' ? style.categoryTextAct : style.categoryText}
-          onPress={() => setList('coffee')}>
-          Coffee
-        </Text>
-        <Text
-          style={
-            list === 'non coffee' ? style.categoryTextAct : style.categoryText
-          }
-          onPress={() => setList('non coffee')}>
-          Non Coffee
-        </Text>
-        <Text
-          style={list === 'food' ? style.categoryTextAct : style.categoryText}
-          onPress={() => setList('food')}>
-          Food
-        </Text>
-        <Text
-          style={list === 'all' ? style.categoryTextAct : style.categoryText}
-          onPress={() => setList('all')}>
-          All
-        </Text>
-        {/* </View> */}
-      </ScrollView>
-      <View style={style.listProducts}>
-        <Text style={style.allProducrs}>SORT</Text>
-        <Pressable onPress={() => props.navigation.navigate('listProduct')}>
-          <Text style={style.allProducrs}>ORDER</Text>
-        </Pressable>
-      </View>
-      <ScrollView
+    <>
+      <Header {...props} />
+      <View>
+        <View style={style.container}>
+          <Text style={style.title}>A good coffee is a good day</Text>
+        </View>
+        <View style={style.searchContainer}>
+          <IconIonicons name="search" size={20} color="#9F9F9F" />
+          <TextInput
+            style={style.searchInput}
+            placeholder={'Search'}
+            onChange={e => {
+              setSearchName(e.nativeEvent.text);
+            }}
+          />
+        </View>
+        <View style={style.productCard}>
+          <ScrollView
+            horizontal={true}
+            style={style.scrollViewH}
+            showsHorizontalScrollIndicator={false}>
+            <Text
+              style={
+                list === 'favorite' ? style.categoryTextAct : style.categoryText
+              }
+              onPress={() => setList('favorite')}>
+              Favorite
+            </Text>
+            <Text
+              style={
+                list === 'coffee' ? style.categoryTextAct : style.categoryText
+              }
+              onPress={() => setList('coffee')}>
+              Coffee
+            </Text>
+            <Text
+              style={
+                list === 'non coffee'
+                  ? style.categoryTextAct
+                  : style.categoryText
+              }
+              onPress={() => setList('non coffee')}>
+              Non Coffee
+            </Text>
+            <Text
+              style={
+                list === 'food' ? style.categoryTextAct : style.categoryText
+              }
+              onPress={() => setList('food')}>
+              Food
+            </Text>
+            <Text
+              style={
+                list === 'all' ? style.categoryTextAct : style.categoryText
+              }
+              onPress={() => setList('all')}>
+              All
+            </Text>
+            {/* </View> */}
+          </ScrollView>
+          <View style={style.listProducts}>
+            <Text style={style.allProducrs}>SORT</Text>
+            <Pressable onPress={() => props.navigation.navigate('listProduct')}>
+              <Text style={style.allProducrs}>ORDER</Text>
+            </Pressable>
+          </View>
+
+          <FlatList
+            data={product}
+            numColumns={2}
+            onEndReached={() => setLimit(limit + 6)}
+            renderItem={({item, idx}) => (
+              <CardProduct
+                key={idx}
+                id={item.id ? item.id : item.products_id}
+                pict={
+                  item.pict
+                    ? item.pict
+                    : require('../../assets/vector/products-default.png')
+                }
+                name={item.name}
+                category={item.category_name}
+                price={item.price}
+                {...props}
+              />
+            )}
+          />
+        </View>
+        {/* <ScrollView
         // horizontal={true}
         style={style.productContainer}
         showsHorizontalScrollIndicator={false}>
@@ -121,8 +163,9 @@ const ListProduct = props => {
               {...props}
             />
           ))}
-      </ScrollView>
-    </View>
+      </ScrollView> */}
+      </View>
+    </>
   );
 };
 

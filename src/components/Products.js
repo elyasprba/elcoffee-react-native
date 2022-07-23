@@ -33,7 +33,8 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginRight: 20,
+    marginRight: 25,
+    marginBottom: 10,
   },
 
   img: {
@@ -49,7 +50,7 @@ const style = StyleSheet.create({
   },
 
   name: {
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
     color: '#000000',
   },

@@ -4,6 +4,7 @@ import styles from './styles';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {ScrollView} from 'react-native-gesture-handler';
+import {REACT_APP_BE_HOST} from '@env';
 
 const History = () => {
   const {authInfo} = useSelector(state => state.auth);
@@ -13,7 +14,7 @@ const History = () => {
     try {
       const config = {headers: {Authorization: `Bearer ${authInfo.token}`}};
       const result = await axios.get(
-        `https://el-coffee-shop.herokuapp.com/transactions`,
+        `${REACT_APP_BE_HOST}/transactions`,
         config,
       );
       console.log('GET HISTORY =', result.data.data[0]);

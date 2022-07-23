@@ -69,8 +69,46 @@ export default StyleSheet.create({
     color: 'white',
   },
 
-  btnConfirm: {
-    borderRadius: 15,
-    padding: 18,
+  cartBtn: {
+    backgroundColor: '#FFBA33',
+    width: '100%',
+    alignSelf: 'center',
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginTop: '3%',
+  },
+
+  cartText: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#6A4029',
+  },
+
+  cartBtnBack: {
+    backgroundColor: '#6A4029',
+    width: '100%',
+    alignSelf: 'center',
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginTop: '3%',
+  },
+
+  cartTextBack: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#ffffff',
+  },
+
+  pleaseAddInfo: {
+    fontSize: 17,
+    fontWeight: 'bold',
   },
 });

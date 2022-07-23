@@ -5,6 +5,9 @@ import axios from 'axios';
 import style from './styles';
 import CardProduct from '../../components/Products';
 import Header from '../../components/Headers';
+import {REACT_APP_BE_HOST} from '@env';
+import {useDispatch, useSelector} from 'react-redux';
+import {userAction} from '../../redux/actionCreator/user';
 
 const Home = props => {
   const [product, setProduct] = useState([]);
@@ -14,10 +17,14 @@ const Home = props => {
   const [sort, setSort] = useState('price');
   const [order, setOrder] = useState('asc');
   const [searchName, setSearchName] = useState('');
+  const {authInfo} = useSelector(state => state.auth);
+  const token = authInfo.token;
+
+  const dispatch = useDispatch();
 
   const getProducts = async () => {
     try {
-      let baseUrl = `https://el-coffee-shop.herokuapp.com/products`;
+      let baseUrl = `${REACT_APP_BE_HOST}/products`;
       if (list === 'all') {
         baseUrl += `?limit=${limit}&page=${page}`;
       }
@@ -44,8 +51,9 @@ const Home = props => {
   };
 
   useEffect(() => {
+    dispatch(userAction(token));
     getProducts();
-  }, [list, searchName]);
+  }, [list, searchName, limit, page]);
 
   return (
     <View>

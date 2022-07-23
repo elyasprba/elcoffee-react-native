@@ -5,7 +5,7 @@ export default StyleSheet.create({
   },
 
   title: {
-    paddingVertical: 20,
+    paddingVertical: 5,
     fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
@@ -75,5 +75,11 @@ export default StyleSheet.create({
   allProducrs: {
     fontSize: 17,
     fontWeight: 'bold',
+  },
+
+  productCard: {
+    marginHorizontal: 15,
+    marginVertical: 5,
+    marginBottom: 400,
   },
 });

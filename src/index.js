@@ -21,6 +21,7 @@ import Payment from './screens/payment';
 import History from './screens/history';
 import Profile from './screens/profile';
 import ListProduct from './screens/listProduct';
+import EditProfile from './screens/editProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -68,7 +69,7 @@ const DrawerNav = ({navigation}) => {
             <View style={{paddingLeft: 20}}>
               <Ion
                 onPress={() => {
-                  navigation.navigate('productDetail');
+                  navigation.navigate('listProduct');
                 }}
                 name="chevron-back-outline"
                 size={20}
@@ -148,37 +149,61 @@ const DrawerNav = ({navigation}) => {
         name="profile"
         component={Profile}
         options={{
-          headerStyle: {
-            backgroundColor: '#F2F2F2',
-          },
-          headerTitle: 'Profile',
-          headerLeft: () => (
-            <View style={{paddingLeft: 20}}>
-              <Ion
-                onPress={() => {
-                  navigation.navigate('Home');
-                }}
-                name="chevron-back-outline"
-                size={20}
-                color="black"
-              />
-            </View>
-          ),
+          headerShown: false,
+          // headerStyle: {
+          //   backgroundColor: '#F2F2F2',
+          // },
+          // headerTitle: 'Profile',
+          // headerLeft: () => (
+          //   <View style={{paddingLeft: 20}}>
+          //     <Ion
+          //       onPress={() => {
+          //         navigation.navigate('Home');
+          //       }}
+          //       name="chevron-back-outline"
+          //       size={20}
+          //       color="black"
+          //     />
+          //   </View>
+          // ),
         }}
       />
       <Drawer.Screen
         name="listProduct"
         component={ListProduct}
         options={{
+          headerShown: false,
+          // headerStyle: {
+          //   backgroundColor: '#F2F2F2',
+          // },
+          // headerTitle: 'List Product',
+          // headerLeft: () => (
+          //   <View style={{paddingLeft: 20}}>
+          //     <Ion
+          //       onPress={() => {
+          //         navigation.navigate('Home');
+          //       }}
+          //       name="chevron-back-outline"
+          //       size={20}
+          //       color="black"
+          //     />
+          //   </View>
+          // ),
+        }}
+      />
+      <Drawer.Screen
+        name="editProfile"
+        component={EditProfile}
+        options={{
           headerStyle: {
             backgroundColor: '#F2F2F2',
           },
-          headerTitle: 'List Product',
+          headerTitle: 'Edit Profile',
           headerLeft: () => (
             <View style={{paddingLeft: 20}}>
               <Ion
                 onPress={() => {
-                  navigation.navigate('Home');
+                  navigation.navigate('profile');
                 }}
                 name="chevron-back-outline"
                 size={20}
