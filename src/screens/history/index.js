@@ -1,4 +1,4 @@
-import {View, Text, Image, Pressable} from 'react-native';
+import {View, Text, Image, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {useSelector} from 'react-redux';
@@ -7,6 +7,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {REACT_APP_BE_HOST} from '@env';
 
 const History = () => {
+  // const {isSuccess, isLoading, errMsg} = useSelector(state => state.auth);
   const {authInfo} = useSelector(state => state.auth);
   const [history, setHistory] = useState([]);
 
@@ -17,15 +18,18 @@ const History = () => {
         `${REACT_APP_BE_HOST}/transactions`,
         config,
       );
-      console.log('GET HISTORY =', result.data.data[0]);
+
       setHistory(result.data.data);
+      console.log('GET HISTORY =', result.data.data[0]);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
+    // if (isSuccess) {
     historyHandler();
+    // }
   }, []);
 
   return (
@@ -35,7 +39,30 @@ const History = () => {
           <View>
             <Text style={styles.orderHistory}>Order History</Text>
           </View>
-          {history.map((result, idx) => (
+          <FlatList
+            data={history}
+            renderItem={({item, idx}) => (
+              <View style={styles.containerHistory} key={idx}>
+                <Image
+                  source={
+                    item.pict
+                      ? {uri: item.pict}
+                      : require('../../assets/vector/products-default.png')
+                  }
+                  style={styles.imageHistory}
+                />
+                <View>
+                  <View>
+                    <Text style={styles.titleHistory}>{item.name}</Text>
+                  </View>
+                  <View style={styles.addInfo}>
+                    <Text>IDR {item.total}</Text>
+                  </View>
+                </View>
+              </View>
+            )}
+          />
+          {/* {history.map((result, idx) => (
             <View style={styles.containerHistory} key={idx}>
               <Image
                 source={
@@ -54,7 +81,7 @@ const History = () => {
                 </View>
               </View>
             </View>
-          ))}
+          ))} */}
           <View>
             <Text style={styles.bottomHistory}>You have no history left</Text>
           </View>

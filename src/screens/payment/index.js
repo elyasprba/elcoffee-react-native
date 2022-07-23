@@ -58,9 +58,9 @@ const Payment = props => {
         'Payment Success',
         'Thank you for shopping at el-CoffeeShop',
       );
-      setTimeout(() => {
-        props.navigation.navigate('Home');
-      }, 1000);
+      // setTimeout(() => {
+      props.navigation.navigate('Home');
+      // }, 1000);
     } catch (error) {
       setIsLoading(false);
       console.log(error);

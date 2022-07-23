@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Image, Pressable, Text, View, Modal} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,6 +17,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer(props) {
   const dispatch = useDispatch();
   const {userInfo} = useSelector(state => state.user);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const historyHandler = () => {
     props.navigation.navigate('history');
@@ -76,12 +77,39 @@ function MyDrawer(props) {
         <Pressable
           style={style.menuList}
           onPress={() => {
-            dispatch(logoutAction());
-            props.navigation.navigate('LandingPage');
+            setModalVisible(true);
+            // dispatch(logoutAction());
+            // props.navigation.navigate('LandingPage');
           }}>
           <Material name="logout" size={20} color="#6A4029" />
           <Text style={style.menuText}>Logout</Text>
         </Pressable>
+        <View style={style.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={style.centeredView}>
+              <View style={style.modalView}>
+                <Pressable
+                  style={[style.button, style.buttonClose]}
+                  // onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={style.textStyle}>Hide Modal</Text>
+                </Pressable>
+                <Pressable
+                  style={[style.button, style.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={style.textStyle}>Hide Modal</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     </>
   );

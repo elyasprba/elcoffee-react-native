@@ -43,7 +43,7 @@ export default StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    resizeMode: 'center',
+    resizeMode: 'cover',
   },
 
   info: {
