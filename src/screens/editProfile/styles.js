@@ -15,7 +15,7 @@ export default StyleSheet.create({
   imageProfile: {
     width: 150,
     height: 150,
-    borderRadius: 50,
+    borderRadius: 100,
     marginTop: 10,
   },
 
@@ -81,5 +81,67 @@ export default StyleSheet.create({
     marginTop: 20,
     padding: 13,
     borderRadius: 15,
+  },
+
+  // Modal styling
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 15,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 30,
+  },
+
+  modalBtn: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    padding: 10,
+  },
+
+  textTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#6A4029',
+  },
+
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    margin: 5,
+  },
+
+  buttonLogout: {
+    borderRadius: 20,
+    width: '35%',
+    padding: 15,
+    elevation: 2,
+    margin: 5,
+    backgroundColor: '#FFBA33',
+  },
+
+  buttonCancel: {
+    borderRadius: 20,
+    width: '35%',
+    padding: 15,
+    elevation: 2,
+    margin: 5,
+    backgroundColor: '#FFBA33',
+  },
+
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

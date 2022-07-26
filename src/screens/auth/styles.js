@@ -10,8 +10,8 @@ export default StyleSheet.create({
     flex: 1,
     display: 'flex',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: 30,
+    paddingBottom: 20,
   },
 
   // titleContainer: {

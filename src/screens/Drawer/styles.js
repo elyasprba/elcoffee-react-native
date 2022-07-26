@@ -44,12 +44,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: '10%',
-    paddingVertical: 20,
+    paddingVertical: 23,
   },
 
   menuText: {
     marginLeft: 15,
-    fontSize: 17,
+    fontSize: 18,
     color: '#6A4029',
   },
 
@@ -58,41 +58,60 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
+
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 15,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 30,
   },
+
+  modalBtn: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    padding: 10,
+  },
+
+  textTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#6A4029',
+  },
+
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    margin: 5,
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
+
+  buttonLogout: {
+    borderRadius: 20,
+    width: '35%',
+    padding: 15,
+    elevation: 2,
+    margin: 5,
+    backgroundColor: '#6A4029',
   },
-  buttonClose: {
-    backgroundColor: '#2196F3',
+
+  buttonCancel: {
+    borderRadius: 20,
+    width: '35%',
+    padding: 15,
+    elevation: 2,
+    margin: 5,
+    backgroundColor: '#FFBA33',
   },
+
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
     textAlign: 'center',
   },
 });

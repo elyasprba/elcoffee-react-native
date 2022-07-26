@@ -49,7 +49,6 @@ const Login = ({navigation}) => {
     dispatch(loginAction(body))
       .then(_ => {
         successToast();
-        navigation.navigate('Drawer');
         sendLocalNotification('WELCOME', 'This is el-CoffeeShop');
         setInput({...input, email: '', password: ''});
       })
@@ -60,7 +59,7 @@ const Login = ({navigation}) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigation.navigate('Drawer');
+      navigation.replace('Drawer');
     }
   }, [isSuccess]);
 
@@ -89,8 +88,10 @@ const Login = ({navigation}) => {
               secureTextEntry={true}
               onChangeText={password => setInput({...input, password})}
             />
-
-            <Pressable onPress={() => {}}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('FogotPassword');
+              }}>
               <Text style={styles.forgot}>Forgot password?</Text>
             </Pressable>
             <Button

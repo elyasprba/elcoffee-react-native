@@ -46,10 +46,12 @@ const Profile = props => {
             <Text style={style.menu}>Order History</Text>
             <Awesome5 name="chevron-right" size={20} />
           </Pressable>
-          <View style={style.menuCard}>
+          <Pressable
+            style={style.menuCard}
+            onPress={() => props.navigation.navigate('editPassword')}>
             <Text style={style.menu}>Edit Password</Text>
             <Awesome5 name="chevron-right" size={20} />
-          </View>
+          </Pressable>
           <View style={style.menuCard}>
             <Text style={style.menu}>FAQ</Text>
             <Awesome5 name="chevron-right" size={20} />

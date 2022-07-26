@@ -61,7 +61,8 @@ PushNotification.createChannel(
     channelId: 'local-notification', // (required)
     channelName: 'Local Notification', // (required)
   },
-  created => console.log('channel is ', created ? 'created' : 'available'), // (optional) callback returns whether the channel was created, false means it already existed.
+  created => console.log('channel is ', created ? 'created' : 'available'),
+  // (optional) callback returns whether the channel was created, false means it already existed.
 );
 
 const AppWithRouter = () => (

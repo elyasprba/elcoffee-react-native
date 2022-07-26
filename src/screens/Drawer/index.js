@@ -31,6 +31,10 @@ function MyDrawer(props) {
     props.navigation.navigate('listProduct');
   };
 
+  const createProductHandler = () => {
+    props.navigation.navigate('createProduct');
+  };
+
   return (
     <>
       <View style={style.container}>
@@ -43,7 +47,9 @@ function MyDrawer(props) {
             }
             style={style.profpict}
           />
-          <Text style={style.username}>{userInfo.display_name}</Text>
+          <Text style={style.username}>
+            {userInfo.display_name ? userInfo.display_name : 'USERNAME'}
+          </Text>
           <Text style={style.email}>{userInfo.email}</Text>
         </View>
         <View style={style.menuContainer}>
@@ -65,10 +71,23 @@ function MyDrawer(props) {
               All menu
             </Text>
           </View>
-          <View style={style.menuList}>
-            <Ionicons name="newspaper-outline" size={20} color="#6A4029" />
-            <Text style={style.menuText}>Privacy policy</Text>
-          </View>
+          {userInfo.role !== 'admin' ? (
+            <>
+              <View style={style.menuList}>
+                <Ionicons name="newspaper-outline" size={20} color="#6A4029" />
+                <Text style={style.menuText}>Privacy policy</Text>
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={style.menuList}>
+                <Ionicons name="newspaper-outline" size={20} color="#6A4029" />
+                <Text style={style.menuText} onPress={createProductHandler}>
+                  Create Product
+                </Text>
+              </View>
+            </>
+          )}
           <View style={style.menuList}>
             <Awesome5 name="shield-alt" size={20} color="#6A4029" />
             <Text style={style.menuText}>Security</Text>
@@ -88,24 +107,29 @@ function MyDrawer(props) {
           <Modal
             animationType="slide"
             transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-              setModalVisible(!modalVisible);
-            }}>
+            visible={modalVisible}>
             <View style={style.centeredView}>
               <View style={style.modalView}>
-                <Pressable
-                  style={[style.button, style.buttonClose]}
-                  // onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={style.textStyle}>Hide Modal</Text>
-                </Pressable>
-                <Pressable
-                  style={[style.button, style.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={style.textStyle}>Hide Modal</Text>
-                </Pressable>
+                <View style={style.modalTitle}>
+                  <Text style={style.textTitle}>
+                    Are you sure you want to leave?
+                  </Text>
+                </View>
+                <View style={style.modalBtn}>
+                  <Pressable
+                    style={style.buttonLogout}
+                    onPress={() => {
+                      setModalVisible(!modalVisible), dispatch(logoutAction());
+                      props.navigation.navigate('LandingPage');
+                    }}>
+                    <Text style={style.textStyle}>Logout</Text>
+                  </Pressable>
+                  <Pressable
+                    style={style.buttonCancel}
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={style.textStyle}>Cancel</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           </Modal>

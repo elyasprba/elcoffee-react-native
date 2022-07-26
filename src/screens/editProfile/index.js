@@ -5,6 +5,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  Modal,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
@@ -17,6 +18,7 @@ import {Button} from '@rneui/base';
 import axios from 'axios';
 import {userAction} from '../../redux/actionCreator/user';
 import moment from 'moment';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 const EditProfile = ({navigation}) => {
   const {authInfo} = useSelector(state => state.auth);
@@ -25,8 +27,10 @@ const EditProfile = ({navigation}) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const [body, setBody] = useState({
-    pict: null,
+    photo: null,
     display_name: '',
     gender: '',
     phone_number: '',
@@ -43,20 +47,53 @@ const EditProfile = ({navigation}) => {
     });
   };
 
-  // const errorToast = () => {
-  //   Toast.show({
-  //     type: 'error',
-  //     text1: errMsg.msg,
-  //   });
-  // };
+  const chooseImageGaleri = async () => {
+    const options = {
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+    try {
+      const result = await launchImageLibrary(options);
+      setFile({
+        name: result.assets[0].fileName,
+        size: result.assets[0].fileSize,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+        height: result.assets[0].height,
+        width: result.assets[0].width,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const chooseImageCamera = async () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 1,
+    };
+    try {
+      const result = await launchCamera(options);
+      setFile({
+        name: result.assets[0].fileName,
+        size: result.assets[0].fileSize,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+        height: result.assets[0].height,
+        width: result.assets[0].width,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const updateProfile = async () => {
     try {
       setIsLoading(true);
-      const {phone_number, display_name, address, birthday_date, gender, pict} =
-        body;
+      const {phone_number, display_name, address, birthday_date, gender} = body;
       let newBody = new FormData();
-      newBody.append('pict', pict);
+      newBody.append('photo', file);
       newBody.append('display_name', display_name);
       newBody.append('gender', gender);
       newBody.append('phone_number', phone_number);
@@ -73,7 +110,7 @@ const EditProfile = ({navigation}) => {
         newBody,
         config,
       );
-      console.log(result.data.msg);
+      // console.log(result.data.msg);
       setMsg(result.data.msg);
       successToast();
       setTimeout(() => {
@@ -92,16 +129,29 @@ const EditProfile = ({navigation}) => {
     setBody(userInfo);
   }, []);
 
+  // console.log('Pict URL :', userInfo.pict);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.containerEdit}>
         <View style={styles.containerPhoto}>
           <Image
-            // source={user.photo ? {uri: user.photo} : ProfDef}
-            source={require('../../assets/vector/profile-default.png')}
+            source={
+              file && file.uri
+                ? {uri: file.uri}
+                : body.photo
+                ? {uri: body.photo}
+                : userInfo.pict
+                ? {uri: userInfo.pict}
+                : require('../../assets/vector/profile-default.png')
+            }
             style={styles.imageProfile}
           />
-          <Pressable style={styles.btnEdit}>
+          <Pressable
+            style={styles.btnEdit}
+            onPress={() => {
+              setModalVisible(true);
+            }}>
             <Icon name="pencil" size={15} color="white" />
           </Pressable>
         </View>
@@ -208,14 +258,37 @@ const EditProfile = ({navigation}) => {
           buttonStyle={styles.btnSave}
         />
       </View>
-      {/* <ModalNav
-                show={showModal}
-                hide={() => setShowModal(!showModal)}
-                navigaction={navigation}
-                title={isError ? message.error : message.success}
-                status={true}
-                setShow={setShowModal}
-            /> */}
+      <View style={styles.centeredView}>
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={styles.modalTitle}>
+                <Text style={styles.textTitle}>
+                  Are you sure you want to leave?
+                </Text>
+              </View>
+              <View style={styles.modalBtn}>
+                <Pressable
+                  style={styles.buttonLogout}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    chooseImageCamera();
+                  }}>
+                  <Text style={styles.textStyle}>Camera</Text>
+                </Pressable>
+                <Pressable
+                  style={styles.buttonCancel}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    chooseImageGaleri();
+                  }}>
+                  <Text style={styles.textStyle}>Galeri</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
     </ScrollView>
   );
 };

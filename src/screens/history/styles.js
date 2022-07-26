@@ -26,6 +26,12 @@ export default StyleSheet.create({
     paddingBottom: 15,
   },
 
+  historyNotFound: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
   imageHistory: {
     width: 65,
     height: 65,

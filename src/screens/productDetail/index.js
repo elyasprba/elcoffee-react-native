@@ -6,11 +6,13 @@ import style from './styles';
 import {useDispatch} from 'react-redux';
 import {addToCartAction} from '../../redux/actionCreator/addCart';
 import {REACT_APP_BE_HOST} from '@env';
+import {currencyFormatter} from '../../helpers/formatter';
 
 const ProductDetail = props => {
   const dispatch = useDispatch();
   const [size, setSize] = useState('');
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const productDetail = async () => {
     try {
@@ -28,9 +30,13 @@ const ProductDetail = props => {
   }, [props.route.params.id]);
 
   const addCartHandler = () => {
+    setIsLoading(true);
     const newProduct = {...product, size};
     dispatch(addToCartAction(newProduct));
-    props.navigation.navigate('cart');
+    setTimeout(() => {
+      setIsLoading(false);
+      props.navigation.navigate('cart');
+    }, 1000);
   };
 
   return (
@@ -47,7 +53,9 @@ const ProductDetail = props => {
               style={style.image}
             />
             <Text style={style.titleName}>{product.name}</Text>
-            <Text style={style.price}>IDR. {product.price}</Text>
+            <Text style={style.price}>
+              {currencyFormatter.format(product.price)}
+            </Text>
           </View>
           <View style={style.deliveryInfo}>
             <Text style={style.titleDelivery}>Delivery Info</Text>
@@ -82,18 +90,20 @@ const ProductDetail = props => {
           </View>
           <View style={style.deliveryInfo}>
             {size === '' ? (
-              <Pressable style={style.btnAddCartDisable}>
+              <Button buttonStyle={style.btnAddCartDisable}>
                 <Text style={style.addCart}>Add to cart</Text>
-              </Pressable>
+              </Button>
             ) : (
-              <Pressable
+              <Button
+                buttonStyle={style.btnAddCart}
+                loading={isLoading}
                 onPress={
                   // props.navigation.navigate('cart');
                   addCartHandler
                 }
-                style={style.btnAddCart}>
+                sty>
                 <Text style={style.addCart}>Add to cart</Text>
-              </Pressable>
+              </Button>
             )}
           </View>
         </ScrollView>

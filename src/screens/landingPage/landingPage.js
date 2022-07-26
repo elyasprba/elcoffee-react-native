@@ -16,14 +16,6 @@ export default StyleSheet.create({
     flex: 1,
   },
 
-  mainTitle: {
-    backgroundColor: '#000000c0',
-    width: 370,
-    height: 120,
-    justifyContent: 'center',
-    opacity: 1,
-  },
-
   text: {
     color: 'white',
     fontSize: 50,
@@ -40,6 +32,7 @@ export default StyleSheet.create({
   },
 
   mainContent: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     display: 'flex',
     flex: 1,
     alignItems: 'center',

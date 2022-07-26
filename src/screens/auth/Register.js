@@ -13,7 +13,8 @@ import Toast from 'react-native-toast-message';
 
 import styles from './styles';
 
-const Register = () => {
+const Register = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -23,7 +24,7 @@ const Register = () => {
   const successToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'Login Success',
+      text1: 'Register Success',
     });
   };
 
@@ -35,21 +36,30 @@ const Register = () => {
   };
 
   const handleRegister = () => {
+    setIsLoading(true);
     const body = {
       email: input.email,
       password: input.password,
       phone_number: input.phone_number,
     };
+
     registerAxios(body)
       .then(_ => {
+        setIsLoading(true);
         // console.log('SUCCESS =',result.data.data.msg);
-        successToast();
+        setTimeout(() => {
+          setIsLoading(false);
+          successToast();
+          navigation.navigate('Login');
+        }, 2000);
         setInput({...input, email: '', password: '', phone_number: ''});
       })
       .catch(_ => {
         // console.log('ERROR =', err.response.data.msg);
+        setIsLoading(false);
         errorToast();
       });
+    setIsLoading(false);
   };
 
   return (
@@ -88,10 +98,12 @@ const Register = () => {
             <Pressable onPress={() => {}}>
               <Text style={styles.forgot}>Login?</Text>
             </Pressable>
-            <Button buttonStyle={styles.loginBtn} onPress={handleRegister}>
+            <Button
+              buttonStyle={styles.loginBtn}
+              loading={isLoading}
+              onPress={handleRegister}>
               <Text style={styles.loginText}>Create Account</Text>
             </Button>
-
             <Pressable style={styles.gbutton}>
               <Image style={styles.google} />
               <Text style={styles.gbuttonText}>Create with Google</Text>

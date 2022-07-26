@@ -5,9 +5,9 @@ export default StyleSheet.create({
   },
 
   title: {
-    paddingVertical: 5,
+    // paddingVertical: 5,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
     color: '#000000',
   },
@@ -44,7 +44,7 @@ export default StyleSheet.create({
 
   categoryText: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 17,
+    fontSize: 15,
     color: '#9A9A9D',
     marginRight: 20,
   },
@@ -52,7 +52,7 @@ export default StyleSheet.create({
   categoryTextAct: {
     fontFamily: 'Poppins-SemiBold',
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 15,
     color: '#6A4029',
     marginRight: 20,
     borderBottomWidth: 2,
@@ -69,7 +69,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 5,
+    paddingVertical: 7,
+  },
+
+  listProductsSort: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   allProducrs: {

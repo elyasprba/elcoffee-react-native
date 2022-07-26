@@ -8,6 +8,7 @@ import {
   addToCartAction,
   removeCartAction,
 } from '../../redux/actionCreator/addCart';
+import {currencyFormatter} from '../../helpers/formatter';
 
 const Cart = props => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const Cart = props => {
                     : null}
                 </Text>
                 <View style={styles.addInfo}>
-                  <Text>IDR. {addProduct.price}</Text>
+                  <Text>{currencyFormatter.format(addProduct.price)}</Text>
                   <View style={styles.qtyCart}>
                     <Pressable
                       onPress={() => (qty <= 0 ? null : setQty(qty - 1))}>
@@ -92,13 +93,6 @@ const Cart = props => {
             <Text style={styles.cartText}>Confirm</Text>
           </Button>
         </View>
-        {/* <Pressable
-          onPress={cartHandler}
-          title="Confirm and Checkout"
-          color="#6A4029"
-          buttonStyle={styles.btnConfirm}>
-          <Text>Confirm and Checkout</Text>
-        </Pressable> */}
       </View>
     </>
   );

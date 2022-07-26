@@ -10,6 +10,7 @@ import {
 } from '@react-navigation/drawer';
 import Ion from 'react-native-vector-icons/Ionicons';
 import MyDrawer from './screens/Drawer';
+import SplashScreen from './screens/SplashScreen';
 import LandingPage from './screens/landingPage';
 import Login from './screens/auth/Login';
 import Register from './screens/auth/Register';
@@ -22,6 +23,10 @@ import History from './screens/history';
 import Profile from './screens/profile';
 import ListProduct from './screens/listProduct';
 import EditProfile from './screens/editProfile';
+import Forgot from './screens/forgot';
+import EditPassword from './screens/editPassword';
+import CreateProduct from './screens/createProduct';
+import EditProduct from './screens/editProduct';
 
 const Drawer = createDrawerNavigator();
 
@@ -213,6 +218,72 @@ const DrawerNav = ({navigation}) => {
           ),
         }}
       />
+      <Drawer.Screen
+        name="editPassword"
+        component={EditPassword}
+        options={{
+          headerStyle: {
+            backgroundColor: '#F2F2F2',
+          },
+          headerTitle: 'Edit Password',
+          headerLeft: () => (
+            <View style={{paddingLeft: 20}}>
+              <Ion
+                onPress={() => {
+                  navigation.navigate('profile');
+                }}
+                name="chevron-back-outline"
+                size={20}
+                color="black"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="createProduct"
+        component={CreateProduct}
+        options={{
+          headerStyle: {
+            backgroundColor: '#F2F2F2',
+          },
+          headerTitle: 'Create Product',
+          headerLeft: () => (
+            <View style={{paddingLeft: 20}}>
+              <Ion
+                onPress={() => {
+                  navigation.navigate('listProduct');
+                }}
+                name="chevron-back-outline"
+                size={20}
+                color="black"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="editProduct"
+        component={EditProduct}
+        options={{
+          headerStyle: {
+            backgroundColor: '#F2F2F2',
+          },
+          headerTitle: 'Edit Product',
+          headerLeft: () => (
+            <View style={{paddingLeft: 20}}>
+              <Ion
+                onPress={() => {
+                  navigation.navigate('listProduct');
+                }}
+                name="chevron-back-outline"
+                size={20}
+                color="black"
+              />
+            </View>
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 };
@@ -224,6 +295,11 @@ const Router = () => {
       <StatusBar barStyle={'light-content'} />
       <Navigator>
         <Screen
+          name="spleshScreen"
+          component={SplashScreen}
+          options={{headerShown: false}}
+        />
+        <Screen
           name="LandingPage"
           component={LandingPage}
           options={{headerShown: false}}
@@ -232,6 +308,11 @@ const Router = () => {
         <Screen
           name="Register"
           component={Register}
+          options={{headerShown: false}}
+        />
+        <Screen
+          name="FogotPassword"
+          component={Forgot}
           options={{headerShown: false}}
         />
         <Screen

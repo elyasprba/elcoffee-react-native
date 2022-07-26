@@ -7,6 +7,9 @@ import axios from 'axios';
 import style from './styles';
 import {REACT_APP_BE_HOST} from '@env';
 import {sendLocalNotification} from '../../helpers/notification';
+import {Button} from '@rneui/base';
+import {currencyFormatter} from '../../helpers/formatter';
+import Toast from 'react-native-toast-message';
 
 const Payment = props => {
   const {
@@ -21,19 +24,20 @@ const Payment = props => {
 
   const dispatch = useDispatch();
 
-  // const successToast = () => {
-  //   Toast.show({
-  //     type: 'success',
-  //     text1: msg ? msg : 'Update succsessfull',
-  //   });
-  // };
-
-  console.log('ID PRODUCT =', id);
-  console.log('ID USERS = ', userInfo.id);
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Please input payment method',
+    });
+  };
 
   const addPayment = async () => {
     try {
       setIsLoading(true);
+      if (payment === '') {
+        setIsLoading(false);
+        return errorToast();
+      }
       const body = {
         name_products: id,
         qty: qty,
@@ -52,15 +56,14 @@ const Payment = props => {
         body,
         config,
       );
-      dispatch(removeCartAction());
       setIsLoading(false);
       sendLocalNotification(
         'Payment Success',
         'Thank you for shopping at el-CoffeeShop',
       );
-      // setTimeout(() => {
       props.navigation.navigate('Home');
-      // }, 1000);
+      dispatch(removeCartAction());
+      setPayment('');
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -96,7 +99,7 @@ const Payment = props => {
                   : null}
               </Text>
             </View>
-            <Text style={style.price}>IDR {price}</Text>
+            <Text style={style.price}>{currencyFormatter.format(price)}</Text>
           </View>
           <View style={style.subtitleContainer}>
             <Text style={style.subtitle}>Payment method</Text>
@@ -132,24 +135,29 @@ const Payment = props => {
           <View style={style.totalContainer}>
             <Text style={style.subtitleSecond}>SubTotal</Text>
             <Text style={style.subtitleSecond}>
-              IDR {parseInt(qty) * parseInt(price)}
+              {currencyFormatter.format(parseInt(qty) * parseInt(price))}
             </Text>
           </View>
           <View style={style.totalContainer}>
             <Text style={style.subtitleSecond}>Tax</Text>
-            <Text style={style.subtitleSecond}>IDR {parseInt(tax)}</Text>
+            <Text style={style.subtitleSecond}>
+              {currencyFormatter.format(parseInt(tax))}
+            </Text>
           </View>
           <View style={style.totalContainer}>
             <Text style={style.subtitleSecond}>Shipping</Text>
-            <Text style={style.subtitleSecond}>IDR {parseInt(shipping)}</Text>
+            <Text style={style.subtitleSecond}>
+              {currencyFormatter.format(parseInt(shipping))}
+            </Text>
           </View>
           <View style={style.totalContainer}>
             <Text style={style.subtitle}>Total</Text>
             <Text style={style.subtitle}>
-              IDR{' '}
-              {parseInt(qty) * parseInt(price) +
-                parseInt(tax) +
-                parseInt(shipping)}
+              {currencyFormatter.format(
+                parseInt(qty) * parseInt(price) +
+                  parseInt(tax) +
+                  parseInt(shipping),
+              )}
             </Text>
           </View>
           <View style={style.subtitleContainer}>
@@ -159,12 +167,12 @@ const Payment = props => {
             source={require('../../assets/vector/card-bank.png')}
             style={style.cardBank}
           />
-          <Pressable
-            style={style.paymentBtn}
+          <Button
+            buttonStyle={style.paymentBtn}
             loading={isLoading}
             onPress={addPayment}>
             <Text style={style.paymentTxt}>Proceed payment</Text>
-          </Pressable>
+          </Button>
         </View>
       </ScrollView>
     </>

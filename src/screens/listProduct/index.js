@@ -9,6 +9,7 @@ import {
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/Headers';
 import React, {useEffect, useState} from 'react';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import style from './styles';
 import CardProduct from '../../components/Products';
@@ -53,7 +54,7 @@ const ListProduct = props => {
 
   useEffect(() => {
     getProducts();
-  }, [list, searchName, limit, page]);
+  }, [list, searchName, limit, page, order, sort]);
 
   return (
     <>
@@ -117,10 +118,31 @@ const ListProduct = props => {
             {/* </View> */}
           </ScrollView>
           <View style={style.listProducts}>
-            <Text style={style.allProducrs}>SORT</Text>
-            <Pressable onPress={() => props.navigation.navigate('listProduct')}>
-              <Text style={style.allProducrs}>ORDER</Text>
-            </Pressable>
+            <View>
+              <FontAwesome5
+                name={order === 'asc' ? 'sort-alpha-down' : 'sort-alpha-up-alt'}
+                size={25}
+                color={'#000000'}
+                onPress={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
+              />
+            </View>
+            <View style={style.listProductsSort}>
+              <Text style={style.title}>Sort by : </Text>
+              <Text
+                style={
+                  sort === 'name' ? style.categoryTextAct : style.categoryText
+                }
+                onPress={() => setSort('name')}>
+                Name
+              </Text>
+              <Text
+                style={
+                  sort === 'price' ? style.categoryTextAct : style.categoryText
+                }
+                onPress={() => setSort('price')}>
+                Price
+              </Text>
+            </View>
           </View>
 
           <FlatList
