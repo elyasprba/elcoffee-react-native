@@ -41,13 +41,19 @@ REACT_APP_HOST
 $ npm install
 ```
 
-- To Start The Project
+- To Start The Project run Metro
 
 ```
 $ npx react-native start
-         &
+```
+
+- To Start The Project run Android
+
+```
 $ npx react-native run-android
 ```
+
+
 
 <br>
 
