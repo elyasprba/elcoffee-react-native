@@ -48,7 +48,6 @@ const Login = ({navigation}) => {
 
     dispatch(loginAction(body))
       .then(_ => {
-        successToast();
         sendLocalNotification('WELCOME', 'This is el-CoffeeShop');
         setInput({...input, email: '', password: ''});
       })

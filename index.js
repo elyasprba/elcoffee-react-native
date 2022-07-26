@@ -8,6 +8,7 @@ import {store, persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import PushNotification from 'react-native-push-notification';
 import Toast from 'react-native-toast-message';
+import {sendLocalNotification} from './src/helpers/notification';
 
 import App from './src';
 import {name as appName} from './app.json';
@@ -22,6 +23,7 @@ PushNotification.configure({
   // (required) Called when a remote is received or opened, or local notification is opened
   onNotification: function (notification) {
     console.log('NOTIFICATION:', notification);
+    sendLocalNotification(notification.title, notification.message);
 
     // process the notification
 
@@ -53,7 +55,7 @@ PushNotification.configure({
    * - if you are not using remote notification or do not have Firebase installed, use this:
    *     requestPermissions: Platform.OS === 'ios'
    */
-  requestPermissions: Platform.OS === 'ios',
+  requestPermissions: true,
 });
 
 PushNotification.createChannel(

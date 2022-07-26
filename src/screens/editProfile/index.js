@@ -119,6 +119,7 @@ const EditProfile = ({navigation}) => {
       }, 1000);
       dispatch(userAction(authInfo.token));
       setBody(...body);
+      setFile(null);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
