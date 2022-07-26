@@ -26,7 +26,7 @@ $ git clone https://github.com/elyasprba/elcoffee-react-native.git
 - Go To Folder Repo
 
 ```
-$ cd el-coffeeshop
+$ cd elcoffee-react-native
 ```
 
 - Setup .env
@@ -41,11 +41,19 @@ REACT_APP_HOST
 $ npm install
 ```
 
-- To Start The Project
+- To Start The Project run Metro
 
 ```
-$ npm run startDev
+$ npx react-native start
 ```
+
+- To Start The Project run Android
+
+```
+$ npx react-native run-android
+```
+
+
 
 <br>
 
