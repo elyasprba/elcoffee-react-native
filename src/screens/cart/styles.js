@@ -12,23 +12,31 @@ export default StyleSheet.create({
   },
 
   containerCard: {
-    padding: 20,
+    padding: 5,
     backgroundColor: 'white',
     borderRadius: 20,
-    display: 'flex',
-    flexDirection: 'row',
+    // display: 'flex',
+    // flexDirection: 'row',
+    justifyContent: 'center',
+    // textAlign: 'center',
+    alignItems: 'center',
   },
 
   imageCart: {
-    width: 65,
-    height: 65,
+    width: 100,
+    height: 100,
     borderRadius: 100,
-    marginRight: 10,
   },
 
   titleCart: {
+    fontSize: 17,
     fontWeight: 'bold',
     color: 'black',
+    paddingTop: 20,
+  },
+
+  price: {
+    fontSize: 17,
   },
 
   sizeCart: {
@@ -39,24 +47,22 @@ export default StyleSheet.create({
   addInfo: {
     width: 195,
     marginTop: 5,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 
   qtyCart: {
-    display: 'flex',
+    // marginHorizontal: 50,
+    marginVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#6A4029',
-    width: 80,
-    justifyContent: 'space-between',
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 3,
-    paddingBottom: 3,
+    justifyContent: 'space-around',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
     borderRadius: 4,
+    height: 40,
+    width: '100%',
   },
 
   btnQty: {

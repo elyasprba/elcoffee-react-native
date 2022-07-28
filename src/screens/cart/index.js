@@ -65,8 +65,10 @@ const Cart = props => {
                     ? `Extra Larger (${addProduct.size})`
                     : null}
                 </Text>
+                <Text style={styles.price}>
+                  {currencyFormatter.format(addProduct.price)}
+                </Text>
                 <View style={styles.addInfo}>
-                  <Text>{currencyFormatter.format(addProduct.price)}</Text>
                   <View style={styles.qtyCart}>
                     <Pressable
                       onPress={() => (qty <= 0 ? null : setQty(qty - 1))}>

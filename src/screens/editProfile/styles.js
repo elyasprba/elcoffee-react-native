@@ -85,9 +85,13 @@ export default StyleSheet.create({
 
   // Modal styling
   centeredView: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    opacity: 5,
     flex: 1,
-    justifyContent: 'center',
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
 
   modalView: {
@@ -137,6 +141,14 @@ export default StyleSheet.create({
     elevation: 2,
     margin: 5,
     backgroundColor: '#FFBA33',
+  },
+
+  buttonCancelBtn: {
+    borderRadius: 10,
+    width: '35%',
+    padding: 7,
+    elevation: 2,
+    backgroundColor: '#6A4029',
   },
 
   textStyle: {

@@ -60,9 +60,9 @@ const ListProduct = props => {
     <>
       <Header {...props} />
       <View>
-        <View style={style.container}>
+        {/* <View style={style.container}>
           <Text style={style.title}>A good coffee is a good day</Text>
-        </View>
+        </View> */}
         <View style={style.searchContainer}>
           <IconIonicons name="search" size={20} color="#9F9F9F" />
           <TextInput
@@ -144,7 +144,6 @@ const ListProduct = props => {
               </Text>
             </View>
           </View>
-
           <FlatList
             data={product}
             numColumns={2}

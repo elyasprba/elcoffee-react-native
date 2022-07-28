@@ -13,7 +13,7 @@ export default StyleSheet.create({
     backgroundColor: '#6A4029',
     paddingVertical: '5%',
     display: 'flex',
-    // borderBottomRightRadius: 20,
+    borderBottomRightRadius: 40,
   },
 
   profpict: {
@@ -55,9 +55,13 @@ export default StyleSheet.create({
 
   // Modal Styling
   centeredView: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    opacity: 5,
     flex: 1,
-    justifyContent: 'center',
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
 
   modalView: {

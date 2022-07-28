@@ -92,6 +92,12 @@ const CreateProduct = props => {
   const createProductsHandler = async () => {
     try {
       setIsLoading(true);
+      if (file.size > 3e6) {
+        return setTimeout(() => {
+          setIsLoading(false);
+          errorToast('Upload a smaller image');
+        }, 2000);
+      }
       const {name, description, size, delivery_info, category, price, stock} =
         body;
       let newBody = new FormData();
@@ -272,11 +278,6 @@ const CreateProduct = props => {
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <View style={styles.modalTitle}>
-                <Text style={styles.textTitle}>
-                  Are you sure you want to leave?
-                </Text>
-              </View>
               <View style={styles.modalBtn}>
                 <Pressable
                   style={styles.buttonLogout}
@@ -293,6 +294,15 @@ const CreateProduct = props => {
                     chooseImageGaleri();
                   }}>
                   <Text style={styles.textStyle}>Galeri</Text>
+                </Pressable>
+              </View>
+              <View>
+                <Pressable
+                  style={styles.buttonCancelBtn}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Text style={styles.textStyle}>Cancle</Text>
                 </Pressable>
               </View>
             </View>

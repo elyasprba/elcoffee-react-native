@@ -26,13 +26,6 @@ const Login = ({navigation}) => {
 
   const dispatch = useDispatch();
 
-  const successToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Login Success',
-    });
-  };
-
   const errorToast = () => {
     Toast.show({
       type: 'error',

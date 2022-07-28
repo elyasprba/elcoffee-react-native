@@ -28,15 +28,44 @@ const Register = ({navigation}) => {
     });
   };
 
-  const errorToast = () => {
+  const errorToast = msg => {
     Toast.show({
       type: 'error',
-      text1: 'Email, Password and Phone Number Invalid',
+      text1: msg,
     });
   };
 
   const handleRegister = () => {
     setIsLoading(true);
+    const emailFormatter = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
+    const passwordFormatter = /(?=.*[0-8])/;
+    const phoneFormatter = /^\d{10}$/;
+
+    if (!input.email.match(emailFormatter)) {
+      return setTimeout(() => {
+        setIsLoading(false);
+        errorToast('Email format should be mail@mail.com!');
+      }, 2000);
+    }
+    if (input.password.length < 8) {
+      return setTimeout(() => {
+        setIsLoading(false);
+        errorToast('Password minimum 8 characters!');
+      }, 2000);
+    }
+    if (!input.password.match(passwordFormatter)) {
+      return setTimeout(() => {
+        setIsLoading(false);
+        errorToast('Password must use 1 numeric character!');
+      }, 2000);
+    }
+    if (!input.phone_number.match(phoneFormatter)) {
+      return setTimeout(() => {
+        setIsLoading(false);
+        errorToast('Not a valid Phone Number!');
+      }, 2000);
+    }
+
     const body = {
       email: input.email,
       password: input.password,
@@ -46,18 +75,16 @@ const Register = ({navigation}) => {
     registerAxios(body)
       .then(_ => {
         setIsLoading(true);
-        // console.log('SUCCESS =',result.data.data.msg);
         setTimeout(() => {
           setIsLoading(false);
           successToast();
           navigation.navigate('Login');
+          setInput({...input, email: '', password: '', phone_number: ''});
         }, 2000);
-        setInput({...input, email: '', password: '', phone_number: ''});
       })
       .catch(_ => {
-        // console.log('ERROR =', err.response.data.msg);
         setIsLoading(false);
-        errorToast();
+        errorToast('Email password and phone number cannot be empty');
       });
     setIsLoading(false);
   };
@@ -91,11 +118,14 @@ const Register = ({navigation}) => {
               value={input.phone_number}
               style={styles.input}
               placeholderTextColor="#cccccc"
-              placeholder="Enter your email phone number"
+              placeholder="Enter your phone number"
               onChangeText={phone_number => setInput({...input, phone_number})}
             />
 
-            <Pressable onPress={() => {}}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Login');
+              }}>
               <Text style={styles.forgot}>Login?</Text>
             </Pressable>
             <Button

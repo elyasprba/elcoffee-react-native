@@ -47,6 +47,13 @@ const EditProfile = ({navigation}) => {
     });
   };
 
+  const errorToast = msg => {
+    Toast.show({
+      type: 'error',
+      text1: msg,
+    });
+  };
+
   const chooseImageGaleri = async () => {
     const options = {
       selectionLimit: 1,
@@ -91,6 +98,12 @@ const EditProfile = ({navigation}) => {
   const updateProfile = async () => {
     try {
       setIsLoading(true);
+      if (file.size > 3e6) {
+        return setTimeout(() => {
+          setIsLoading(false);
+          errorToast('Upload a smaller image');
+        }, 2000);
+      }
       const {phone_number, display_name, address, birthday_date, gender} = body;
       let newBody = new FormData();
       newBody.append('photo', file);
@@ -263,11 +276,6 @@ const EditProfile = ({navigation}) => {
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <View style={styles.modalTitle}>
-                <Text style={styles.textTitle}>
-                  Are you sure you want to leave?
-                </Text>
-              </View>
               <View style={styles.modalBtn}>
                 <Pressable
                   style={styles.buttonLogout}
@@ -284,6 +292,15 @@ const EditProfile = ({navigation}) => {
                     chooseImageGaleri();
                   }}>
                   <Text style={styles.textStyle}>Galeri</Text>
+                </Pressable>
+              </View>
+              <View>
+                <Pressable
+                  style={styles.buttonCancelBtn}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Text style={styles.textStyle}>Cancle</Text>
                 </Pressable>
               </View>
             </View>

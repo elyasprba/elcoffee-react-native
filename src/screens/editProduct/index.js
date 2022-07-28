@@ -91,6 +91,12 @@ const EditProduct = props => {
 
   const updateProductHandler = async () => {
     try {
+      if (file.size > 3e6) {
+        return setTimeout(() => {
+          setIsLoading(false);
+          errorToast('Upload a smaller image');
+        }, 2000);
+      }
       const {name, description, size, delivery_info, category, price} = product;
       let body = new FormData();
       body.append('photo', file);
@@ -272,11 +278,6 @@ const EditProduct = props => {
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <View style={styles.modalTitle}>
-                <Text style={styles.textTitle}>
-                  Are you sure you want to leave?
-                </Text>
-              </View>
               <View style={styles.modalBtn}>
                 <Pressable
                   style={styles.buttonLogout}
@@ -293,6 +294,15 @@ const EditProduct = props => {
                     chooseImageGaleri();
                   }}>
                   <Text style={styles.textStyle}>Galeri</Text>
+                </Pressable>
+              </View>
+              <View>
+                <Pressable
+                  style={styles.buttonCancelBtn}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Text style={styles.textStyle}>Cancle</Text>
                 </Pressable>
               </View>
             </View>
