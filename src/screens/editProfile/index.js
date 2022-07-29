@@ -98,12 +98,12 @@ const EditProfile = ({navigation}) => {
   const updateProfile = async () => {
     try {
       setIsLoading(true);
-      if (file.size > 3e6) {
-        return setTimeout(() => {
-          setIsLoading(false);
-          errorToast('Upload a smaller image');
-        }, 2000);
-      }
+      // if (file.size > 3e6) {
+      //   return setTimeout(() => {
+      //     setIsLoading(false);
+      //     errorToast('Upload a smaller image');
+      //   }, 2000);
+      // }
       const {phone_number, display_name, address, birthday_date, gender} = body;
       let newBody = new FormData();
       newBody.append('photo', file);
@@ -300,7 +300,7 @@ const EditProfile = ({navigation}) => {
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}>
-                  <Text style={styles.textStyle}>Cancle</Text>
+                  <Text style={styles.textStyle}>Cancel</Text>
                 </Pressable>
               </View>
             </View>

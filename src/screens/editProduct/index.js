@@ -91,12 +91,12 @@ const EditProduct = props => {
 
   const updateProductHandler = async () => {
     try {
-      if (file.size > 3e6) {
-        return setTimeout(() => {
-          setIsLoading(false);
-          errorToast('Upload a smaller image');
-        }, 2000);
-      }
+      // if (file.size > 3e6) {
+      //   return setTimeout(() => {
+      //     setIsLoading(false);
+      //     errorToast('Upload a smaller image');
+      //   }, 2000);
+      // }
       const {name, description, size, delivery_info, category, price} = product;
       let body = new FormData();
       body.append('photo', file);
@@ -127,7 +127,7 @@ const EditProduct = props => {
       setProduct({});
       setFile(null);
     } catch (error) {
-      errorToast('Update invalid, Please check input');
+      // errorToast('Update invalid, Please check input');
       console.log(error.response);
     }
   };
@@ -302,7 +302,7 @@ const EditProduct = props => {
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}>
-                  <Text style={styles.textStyle}>Cancle</Text>
+                  <Text style={styles.textStyle}>Cancel</Text>
                 </Pressable>
               </View>
             </View>

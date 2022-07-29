@@ -302,7 +302,7 @@ const CreateProduct = props => {
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}>
-                  <Text style={styles.textStyle}>Cancle</Text>
+                  <Text style={styles.textStyle}>Cancel</Text>
                 </Pressable>
               </View>
             </View>
